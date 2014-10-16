@@ -54,8 +54,7 @@ Available options (and there default values) are:
     # NOTE: opening up the RPC port to hosts outside your local
     # trusted network is NOT RECOMMENDED, because the rpcpassword
     # is transmitted over the network unencrypted.
-    bitcoind_rpcallowip:
-      - 127.0.0.1
+    bitcoind_rpcallowip: [ "127.0.0.1", "192.168.1.*" ]
 
 	# Listen for RPC connections on this TCP port. Uses default port if
 	# not set
