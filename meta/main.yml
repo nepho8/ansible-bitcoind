@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Vincent de Lagabbe
+  description: Install and configure a bitcoind service
+  company: Challenger Deep
+  license: MIT
+  min_ansible_version: 1.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+  categories:
+    - development
+dependencies: []

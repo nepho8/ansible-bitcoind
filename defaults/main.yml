@@ -1,0 +1,12 @@
+---
+bitcoind_testnet: 0
+bitcoind_server: 1
+bitcoind_proxy: False
+bitcoind_maxconnections: 125
+bitcoind_rpctimeout: 30
+bitcoind_rpcallowip:
+  - 127.0.0.1
+bitcoind_rpcport:
+bitcoind_gen: 0
+bitcoind_txindex: 0
+bitcoind_disablewallet: 0

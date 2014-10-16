@@ -1,0 +1,15 @@
+---
+- include: debian.yml
+
+- name: Add init script
+  copy:
+    src=etc/init/bitcoind.conf
+    dest=/etc/init/bitcoind.conf
+    owner=root
+    group=root mode=0644
+  register: init_script
+
+- name: Update upstart
+  command: /sbin/initctl reload-configuration
+  when: init_script.changed
+  notify: Restart bitcoind

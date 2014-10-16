@@ -1,0 +1,45 @@
+---
+
+- name: Check for RPC user
+  fail:
+    msg: "Server mode is set and bitcoind_rpcuser has not been defined"
+  when: bitcoind_server == 1 and bitcoind_rpcuser|default(False) == False
+
+- name: Check for RPC password
+  fail:
+    msg: "Server mode is set and bitcoind_rpcpassword has not been defined"
+  when: bitcoind_server == 1 and bitcoind_rpcpassword|default(False) == False
+
+- include: ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include: default.yml
+  when: bitcoind_loaded_os_family|default(False) == False
+
+- name: Add bitcoind group
+  group: name=bitcoind state=present
+
+- name: Add bitcoind user
+  user:
+    name=bitcoind
+    group=bitcoind
+    createhome=yes
+    system=yes
+    state=present
+
+- name: Ensure ~bitcoind/.bitcoin exists
+  file:
+    path=/home/bitcoind/.bitcoin
+    state=directory
+    owner=bitcoind
+    group=bitcoind
+
+- name: Configure bitcoind
+  template:
+    src=bitcoin.conf.j2
+    dest=/home/bitcoind/.bitcoin/bitcoin.conf
+    owner=bitcoind
+    group=bitcoind
+    mode=0600
+  notify:
+    Restart bitcoind

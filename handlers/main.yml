@@ -1,0 +1,5 @@
+---
+- name: Restart bitcoind
+  service:
+    name: bitcoind
+    state: restarted
