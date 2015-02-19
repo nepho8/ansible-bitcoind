@@ -10,3 +10,5 @@ bitcoind_rpcport:
 bitcoind_gen: 0
 bitcoind_txindex: 0
 bitcoind_disablewallet: 0
+bitcoind_sysperms: 0
+bitcoind_blocknotify: null

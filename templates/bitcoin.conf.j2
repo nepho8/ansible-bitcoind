@@ -127,3 +127,10 @@ txindex={{ bitcoind_txindex }}
 
 # Do not load the wallet and disable wallet RPC calls
 disablewallet={{ bitcoind_disablewallet }}
+
+# Use system permissions
+sysperms={{ bitcoind_sysperms }}
+
+{% if bitcoind_blocknotify %}
+blocknotify={{ bitcoind_blocknotify }}
+{% endif %}
