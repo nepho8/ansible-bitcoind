@@ -1,5 +1,8 @@
 ---
+- name: Update supervisor
+  command:  supervisorctl update
+
 - name: Restart bitcoind
-  service:
-    name: bitcoind
-    state: restarted
+  supervisorctl:
+    name=bitcoind
+    state=restarted

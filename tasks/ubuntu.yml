@@ -1,15 +1,29 @@
 ---
 - include: debian.yml
 
-- name: Add init script
-  copy:
-    src=etc/init/bitcoind.conf
-    dest=/etc/init/bitcoind.conf
-    owner=root
-    group=root mode=0644
-  register: init_script
+- name: Create log dir
+  file:
+    path=/var/log/bitcoind
+    state=directory
+    owner=bitcoind group=bitcoind mode=0755
 
-- name: Update upstart
-  command: /sbin/initctl reload-configuration
-  when: init_script.changed
-  notify: Restart bitcoind
+- name: Add supervisor
+  apt:
+    name=supervisor
+    state=latest
+  notify: Restart supervisor
+
+- name: Ensure supervisor is enabled and started
+  service:
+    name=supervisor
+    state=started
+    enabled=yes
+
+- name: Copy supervisor configuration
+  copy:
+    src=etc/supervisor/conf.d/bitcoind.conf
+    dest=/etc/supervisor/conf.d/bitcoind.conf
+    owner=root group=root mode=0644
+  notify:
+    - Update supervisor
+    - Restart bitcoind
