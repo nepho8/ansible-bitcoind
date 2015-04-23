@@ -17,4 +17,4 @@
 - name: Debian | Install bitcoind
   apt:
     name=bitcoind
-    state=present
+    state=latest
