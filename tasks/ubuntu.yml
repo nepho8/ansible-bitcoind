@@ -20,8 +20,8 @@
     enabled=yes
 
 - name: Copy supervisor configuration
-  copy:
-    src=etc/supervisor/conf.d/bitcoind.conf
+  template:
+    src=supervisor-bitcoind.conf.j2
     dest=/etc/supervisor/conf.d/bitcoind.conf
     owner=root group=root mode=0644
   notify:

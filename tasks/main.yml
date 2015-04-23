@@ -10,6 +10,8 @@
     msg: "Server mode is set and bitcoind_rpcpassword has not been defined"
   when: bitcoind_server == 1 and bitcoind_rpcpassword|default(False) == False
 
+- debug: msg="data directory is {{ bitcoind_datadir }}"
+
 - include: ubuntu.yml
   when: ansible_os_family == 'Debian'
 
@@ -27,9 +29,9 @@
     system=yes
     state=present
 
-- name: Ensure ~bitcoind/.bitcoin exists
+- name: Ensure bitcoind_datadir exists
   file:
-    path=/home/bitcoind/.bitcoin
+    path={{ bitcoind_datadir }}
     state=directory
     owner=bitcoind
     group=bitcoind
@@ -37,7 +39,7 @@
 - name: Configure bitcoind
   template:
     src=bitcoin.conf.j2
-    dest=/home/bitcoind/.bitcoin/bitcoin.conf
+    dest={{ bitcoind_datadir }}/bitcoin.conf
     owner=bitcoind
     group=bitcoind
     mode=0600

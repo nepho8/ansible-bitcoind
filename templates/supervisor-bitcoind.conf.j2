@@ -1,6 +1,5 @@
 [program:bitcoind]
-command=/usr/bin/bitcoind -datadir=/home/bitcoind/.bitcoin
-directory=/home/bitcoind
+command=/usr/bin/bitcoind -datadir={{ bitcoind_datadir }} -printtoconsole
 autostart=true
 autorestart=true
 startretries=5
