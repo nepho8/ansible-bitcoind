@@ -2,6 +2,9 @@
 - name: Update supervisor
   command:  supervisorctl update
 
+- name: Restart supervisor
+  command: supervisorctl restart
+
 - name: Restart bitcoind
   supervisorctl:
     name=bitcoind
